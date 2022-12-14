@@ -1,15 +1,23 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import reportWebVitals from "./reportWebVitals";
-import "tachyons";
-import App from "./containers/App";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import { Provider } from 'react-redux';
+import { legacy_createStore as createStore } from 'redux';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+import reportWebVitals from './reportWebVitals';
+import 'tachyons';
+import App from './containers/App';
+import { searchRobots } from './reducers';
+
+const store = createStore(searchRobots);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+	<React.StrictMode>
+		<Provider store={store}>
+			<App />
+		</Provider>
+	</React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
