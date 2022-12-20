@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
@@ -35,14 +35,19 @@ function App({
 	requestRobots,
 	error,
 }) {
+	const [filteredRobots, setFilteredRobots] = useState([]);
+
 	useEffect(() => {
 		console.log('useEffect');
 		requestRobots();
 	}, [requestRobots]);
 
-	const filteredRobots = robots.filter((robot) => {
-		return robot.name.toLowerCase().includes(searchField.toLowerCase());
-	});
+	useEffect(() => {
+		const filteredRobots = robots.filter((robot) => {
+			return robot.name.toLowerCase().includes(searchField.toLowerCase());
+		});
+		setFilteredRobots(filteredRobots);
+	}, [searchField, robots]);
 
 	return isPending ? (
 		<h1>Loading</h1>
